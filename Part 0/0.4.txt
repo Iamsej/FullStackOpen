@@ -1,0 +1,15 @@
+Browser --> Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+(Form-data from entry form is sent to the server)
+Server --> Browser: redirect to https://studies.cs.helsinki.fi/exampleapp/notes
+Browser --> Server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+Server --> Browser: notes (HTML)
+Browser --> Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server --> Browser: main.css
+Browser --> Server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server --> Browser: main.js
+(Browser executes Javascript)
+Browser --> Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Server --> Browser: data.json
+(Browser executes Javascript)
+Browser --> Server: GET https://studies.cs.helsinki.fi/favicon.ico
+Server --> Browser: favicon.ico
