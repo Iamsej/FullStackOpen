@@ -1,3 +1,5 @@
+Network events upon submitting form data on the example app:
+
 Browser --> Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
 (Form-data from entry form is sent to the server)
 Server --> Browser: redirect to https://studies.cs.helsinki.fi/exampleapp/notes
