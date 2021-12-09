@@ -1,4 +1,4 @@
-Network events upon submitting form data on the example single page app:
+Network events upon loading the example single page app:
 
 Browser --> Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
 Server --> Browser: spa (HTML)

@@ -1,4 +1,4 @@
-Network events upon submitting form data on the example app:
+Network events upon submitting form data on the example traditional app:
 
 Browser --> Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
 (Form-data from entry form is sent to the server)

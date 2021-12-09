@@ -1,0 +1,6 @@
+Network events upon submitting form data on the example single page app:
+
+(Browser executes Javascript
+spa.js saves form data and creates POST request with that data in JSON format)
+Browser --> Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+(Browser executes Javascript)
