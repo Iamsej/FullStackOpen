@@ -8,16 +8,35 @@ const Button = ( {name, func}) => {
   )
 }
 
-const Stats = (props) => {
-  return (
-    <>
-      <h1>Feedback Statistics:</h1>
-      <br/>
-      <p>Good: {props.good}</p>
-      <p>Neutral: {props.neutral}</p>
-      <p>Bad: {props.bad}</p>
-    </>
-  )
+const StatisticLine = ({name, value}) => 
+  <p>{name}: {value}</p>
+
+const Statistics = ( {good, bad, neutral} ) => {
+  const total = (good + bad + neutral)
+  const average = ((good - bad)/(total))
+  const positivity = String((good/total)*100) + '%'
+  if (total > 0){
+    return (
+      <>
+        <h1>Feedback Statistics:</h1>
+        <br/>
+        <StatisticLine name='Good' value={good} />
+        <StatisticLine name='Neutral' value={neutral} />
+        <StatisticLine name='Bad' value={bad} />
+        <StatisticLine name='Total' value={total} />
+        <StatisticLine name='Average' value={average} />
+        <StatisticLine name='Positive' value={positivity} />
+      </>
+    )
+  } else {
+    return (
+      <>
+        <h1>Feedback Statistics:</h1>
+        <br/>
+        <p>No feedback given</p>
+      </>
+    )
+  }
 }
 
 
@@ -37,7 +56,7 @@ const App = () => {
       func= {() => setNeutral(neutral + 1)} />
       <Button name='bad'
       func= {() => setBad(bad + 1)} />
-      <Stats good={good} bad={bad} neutral={neutral} />
+      <Statistics good={good} bad={bad} neutral={neutral} />
     </div>
   )
 }
