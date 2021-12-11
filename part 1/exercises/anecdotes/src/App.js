@@ -2,15 +2,23 @@ import React, { useState } from 'react'
 
 
 
-const Button = ( {func} ) => {
+const Button = ( {func, text} ) => {
 return(
     <>
-      <button onClick={func}>Anecdote me!</button>
+      <button onClick={func}>{text}</button>
     </>
   )
 }
 
-
+const Highest = (props) => {
+  return(
+    <>
+      <h1>Most voted anecdote:</h1>
+      <p> "{props.winner}"</p>
+      <p>currently has the most votes, with {props.votes}</p>
+    </>
+  )
+}
 
 const App = () => {
   const anecdotes = [
@@ -25,6 +33,8 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
 
+  const [points, setPoints] = useState(new Uint8Array(7))
+
   function getRandNumInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -37,10 +47,37 @@ const App = () => {
     )
   }
 
+  function voteForAnecdote() {
+    const copy = [...points]
+    
+    return (
+      copy[selected] += 1,
+      setPoints(copy)
+    )
+  }
+
+  function findWinner() {
+    const max = Math.max(...points)
+    const index = points.indexOf(max)
+    console.log(max)
+    
+    return(
+      [anecdotes[index], max]
+    )
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
-      <p><Button func={getRandAnecdote} /></p>
+      <h1>Your Anecdote:</h1>
+      "{anecdotes[selected]}"
+      <p>This anecdote has {points[selected]} votes</p>
+      <p>
+        <Button func={voteForAnecdote}
+        text='Vote!' />
+        <Button func={getRandAnecdote}
+        text='Anecdote me!' />
+      </p>
+      <Highest winner={findWinner()[0]} votes={findWinner()[1]} />
     </div>
   )
 }
