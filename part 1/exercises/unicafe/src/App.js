@@ -9,7 +9,10 @@ const Button = ( {name, func}) => {
 }
 
 const StatisticLine = ({name, value}) => 
-  <p>{name}: {value}</p>
+  <tr>
+    <td>{name}:</td>
+    <td>{value}</td>
+  </tr>
 
 const Statistics = ( {good, bad, neutral} ) => {
   const total = (good + bad + neutral)
@@ -20,12 +23,16 @@ const Statistics = ( {good, bad, neutral} ) => {
       <>
         <h1>Feedback Statistics:</h1>
         <br/>
-        <StatisticLine name='Good' value={good} />
-        <StatisticLine name='Neutral' value={neutral} />
-        <StatisticLine name='Bad' value={bad} />
-        <StatisticLine name='Total' value={total} />
-        <StatisticLine name='Average' value={average} />
-        <StatisticLine name='Positive' value={positivity} />
+        <table>
+          <tbody>
+            <StatisticLine name='Good' value={good} />
+            <StatisticLine name='Neutral' value={neutral} />
+            <StatisticLine name='Bad' value={bad} />
+            <StatisticLine name='Total' value={total} />
+            <StatisticLine name='Average' value={average} />
+            <StatisticLine name='Positive' value={positivity} />
+          </tbody>
+        </table>
       </>
     )
   } else {
