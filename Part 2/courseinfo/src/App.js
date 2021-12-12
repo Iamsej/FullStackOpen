@@ -36,7 +36,7 @@ const Total = ({parts}) => {
   return (
     <>
       <p>
-        Total exercises in this course{' '}  
+        Total exercises in this course:{' '}  
         {exercisecount.reduce((a, b) => a + b)}
       </p>
     </>
