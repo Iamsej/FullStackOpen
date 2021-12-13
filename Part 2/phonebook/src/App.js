@@ -1,25 +1,7 @@
 import React, { useState } from 'react'
-
-const Person = ({name, number}) => {
-  return(
-    <>
-      <p>
-        {name}: {number}
-      </p>
-    </>
-  )
-}
-
-
-const Numbers = ({persons}) => {
-  const personsmap = persons.map(person => 
-  <Person key={person.name} name={person.name} number={person.number} />)
-  return(
-    <>
-      {personsmap}
-    </>
-  )
-}
+import Filter from './components/Filter'
+import Numbers from './components/Numbers'
+import SubmissionForm from './components/SubmissionForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -60,34 +42,20 @@ const App = () => {
     setSearchName(event.target.value)
   }
 
-  const searchFilter = (person) => {
-    if (person.name.toLowerCase().indexOf(searchName.toLowerCase()) >-1) {
-      return(
-        person
-      )
-    }
-  }
+  
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        <p>Search for name: <input value={searchName} onChange={searchBar}/></p> 
-      </div>
+      <Filter value={searchName} function={searchBar}/>
       <h2>Add a new contact</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input value={newName} onChange={handleNameInput}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberInput}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <SubmissionForm 
+      namefield={newName} nameinput={handleNameInput}
+      numberfield={newNumber} numberinput={handleNumberInput}
+      submission={addName}
+      />
       <h2>Numbers</h2>
-      <Numbers persons={(persons.map(searchFilter)).filter(e => e !== undefined)}/>
+      <Numbers persons={persons} searchName={searchName}/>
     </div>
   )
 }
