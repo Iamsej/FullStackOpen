@@ -4,7 +4,7 @@ import Languages from './Languages'
   
   const MidList = (props) => {
     const toDisplay = props.midMap.map(
-      (country) => <li key={country.name.common}>{country.name.common}</li>
+      (country) => <li key={country.name.common}>{country.name.common}  <button value={country.name.common} onClick={props.showCountry}>Show</button></li>
     )
     
     return(
@@ -15,6 +15,7 @@ import Languages from './Languages'
       </>
     )
   }
+  
   
   const CountryItem = ({country}) => {
       return(
@@ -54,7 +55,7 @@ import Languages from './Languages'
             <CountryItem country={midMap[0]}/>
             )    
       } else if (1 < midMap.length < 10) {
-        return(<MidList midMap={midMap}/>)
+        return(<MidList midMap={midMap} searchTerm={props.searchTerm} showCountry={props.showCountry}/>)
       } 
     }
   

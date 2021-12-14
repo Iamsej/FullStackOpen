@@ -21,10 +21,14 @@ function App() {
     setSearch(event.target.value)
   }
 
+  const showCountry = (event) => {
+    setSearch(event.target.value)
+  }
+
     return (
     <div>
       <Filter value={searchTerm} function={onSearch}/>
-      <CountryDisplay countries={countries} searchTerm={searchTerm}/>
+      <CountryDisplay countries={countries} searchTerm={searchTerm} showCountry={showCountry}/>
     </div>
   );
 }
