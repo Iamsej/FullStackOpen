@@ -28,7 +28,9 @@ function App() {
     return (
     <div>
       <Filter value={searchTerm} function={onSearch}/>
-      <CountryDisplay countries={countries} searchTerm={searchTerm} showCountry={showCountry}/>
+      <CountryDisplay 
+      countries={countries} searchTerm={searchTerm} 
+      showCountry={showCountry}/>
     </div>
   );
 }
