@@ -15,10 +15,15 @@ const sendName = newObject => {
     )
 }
 
+const updateName = (id, newObject) => {
+    const request = axios.put(`${baseUrl}/${id}`, newObject)
+    return request.then(response => response.data)
+}
+
 const deleteName = (id) => {
     const request = axios.delete(`${baseUrl}/${id}`)
     return(
-        request.then(alert('Entry deleted'))
+        request.then(console.log('Entry deleted'))
     )
 }
 
@@ -27,5 +32,6 @@ export default
 {
     getAll,
     sendName,
-    deleteName
+    deleteName,
+    updateName
 }

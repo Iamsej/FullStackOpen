@@ -4,11 +4,18 @@ import Numbers from './components/Numbers'
 import SubmissionForm from './components/SubmissionForm'
 import serviceRequest from './services/persons'
 
+
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+
+  const findIdForName= (targetName) => {
+    const personObject = persons.find(person => person.name === targetName)
+    return(personObject.id)
+  }
 
   useEffect(() => {
     serviceRequest
@@ -32,13 +39,19 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-  
+    
     persons.every((person) => 
     person.name !== newName)
     ? serviceRequest
         .sendName(address)
         .then(response => {setPersons(persons.concat(response))})
-    : alert(`${newName} is already in the Phonebook`)
+    : window.confirm(
+      `${newName} is already in the Phonebook. Would you like to update their number?`)
+      ? serviceRequest
+          .updateName(findIdForName(address.name), address)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.name !== returnedPerson.name ? person : returnedPerson))})
+      : alert('Cancelled update')
  
     setNewName('')
     setNewNumber('')
@@ -46,12 +59,11 @@ const App = () => {
 
   const removeName = (event) => {
     const deletionName = event.currentTarget.value
-    const deletionCandidate = persons.find(person => person.name === deletionName)
-    console.log(deletionCandidate)
+    const deletionCandidate = findIdForName(deletionName)
     window.confirm(`Are you sure you want to delete ${deletionName} from your contacts?`)
     ? serviceRequest
-      .deleteName(deletionCandidate.id)
-      .then( () => {setPersons(persons.filter(n => n.id !== deletionCandidate.id))})
+      .deleteName(deletionCandidate)
+      .then( () => {setPersons(persons.filter(person => person.id !== deletionCandidate))})
     : alert('Deletion cancelled')
   }
 
@@ -59,7 +71,6 @@ const App = () => {
     setSearchName(event.target.value)
   }
 
-  
 
   return (
     <div>
