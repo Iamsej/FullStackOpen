@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import Numbers from './components/Numbers'
 import SubmissionForm from './components/SubmissionForm'
-import axios from 'axios'
+import serviceRequest from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -11,10 +11,10 @@ const App = () => {
   const [searchName, setSearchName] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    serviceRequest
+      .getAll()
       .then(response => {
-        setPersons(response.data)
+        setPersons(response)
       })
   }, [])
 
@@ -35,7 +35,9 @@ const App = () => {
   
     persons.every((person) => 
     person.name !== newName)
-    ? setPersons(persons.concat(address))
+    ? serviceRequest
+        .send(address)
+        .then(response => {setPersons(persons.concat(response))})
     : alert(`${newName} is already in the Phonebook`)
  
     setNewName('')
