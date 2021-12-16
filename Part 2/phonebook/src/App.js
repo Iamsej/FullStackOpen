@@ -36,12 +36,23 @@ const App = () => {
     persons.every((person) => 
     person.name !== newName)
     ? serviceRequest
-        .send(address)
+        .sendName(address)
         .then(response => {setPersons(persons.concat(response))})
     : alert(`${newName} is already in the Phonebook`)
  
     setNewName('')
     setNewNumber('')
+  }
+
+  const removeName = (event) => {
+    const deletionName = event.currentTarget.value
+    const deletionCandidate = persons.find(person => person.name === deletionName)
+    console.log(deletionCandidate)
+    window.confirm(`Are you sure you want to delete ${deletionName} from your contacts?`)
+    ? serviceRequest
+      .deleteName(deletionCandidate.id)
+      .then( () => {setPersons(persons.filter(n => n.id !== deletionCandidate.id))})
+    : alert('Deletion cancelled')
   }
 
   const searchBar = (event) => {
@@ -61,7 +72,7 @@ const App = () => {
       submission={addName}
       />
       <h2>Numbers</h2>
-      <Numbers persons={persons} searchName={searchName}/>
+      <Numbers persons={persons} searchName={searchName} deletion={removeName}/>
     </div>
   )
 }

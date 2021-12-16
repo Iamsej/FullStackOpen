@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Person = ({name, number}) => {
+const Person = ({name, number, deletion}) => {
     return(
       <>
         <p>
-          {name}: {number}
+          {name}: {number} <button value={name} onClick={deletion}>Delete</button>
         </p>
       </>
     )
@@ -21,7 +21,7 @@ const Numbers = (props) => {
 
     const midmap = (props.persons.map(searchFilter)).filter(e => e !== undefined)
     const personsmap = midmap.map(person => 
-    <Person key={person.name} name={person.name} number={person.number} />)
+    <Person key={person.name} name={person.name} number={person.number} deletion={props.deletion}/>)
     
     return(
       <>
