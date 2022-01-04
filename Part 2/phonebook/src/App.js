@@ -83,11 +83,15 @@ const App = () => {
           .then(() => {setMessage(`${address.name} sucessfully updated`)})
           .then(()=> {setTimeout(()=> {setMessage(null)}, 5000)})
           .catch(error => {
-            setError(error.response.data.error);
+            if (!error.response.data.error) {
+              setError('Name already deleted from Phonebook')
+            } else {
+              setError(error.response.data.error);
+            }
             setTimeout(() => {
               setError(null)
             }, 5000);
-            setPersons(persons);
+            setPersons(persons.filter(person => person.name !== newName));
           })
       : alert('Cancelled update')
  
@@ -101,9 +105,16 @@ const App = () => {
     window.confirm(`Are you sure you want to delete ${deletionName} from your contacts?`)
     ? serviceRequest
       .deleteName(deletionCandidate)
-      .then( () => {setPersons(persons.filter(person => person.id !== deletionCandidate))})
-      .then(() => {setMessage(`${deletionName} sucessfully deleted`)})
-          .then(()=> setTimeout(()=> {setMessage(null)}, 5000))
+        .then( () => {setPersons(persons.filter(person => person.id !== deletionCandidate))})
+        .then(() => {setMessage(`${deletionName} sucessfully deleted`)})
+        .then(()=> setTimeout(()=> {setMessage(null)}, 5000))
+        .catch(error => {
+          setError('Person not found');
+            setTimeout(() => {
+              setError(null)
+            }, 5000);
+            setPersons(persons.filter(person => person.id !== deletionCandidate));
+        })
     : alert('Deletion cancelled')
   }
 
