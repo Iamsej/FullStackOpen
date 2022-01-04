@@ -76,7 +76,7 @@ const App = () => {
           .then(() => {setMessage(`${address.name} sucessfully updated`)})
           .then(()=> {setTimeout(()=> {setMessage(null)}, 5000)})
           .catch(error => {
-            setError(`${newName} already removed from phonebook`);
+            setError(error.response.data.error);
             setTimeout(() => {
               setError(null)
             }, 5000);
