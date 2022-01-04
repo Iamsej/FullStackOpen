@@ -66,7 +66,14 @@ const App = () => {
         .sendName(address)
         .then(response => {setPersons(persons.concat(response))})
         .then(() => {setMessage(`${newName} sucessfully added`)})
-          .then(()=> setTimeout(()=> {setMessage(null)}, 5000))
+        .then(()=> setTimeout(()=> {setMessage(null)}, 5000))
+        .catch(error => {
+          setError(error.response.data.error);
+          setTimeout(() => {
+            setError(null)
+          }, 5000);
+          setPersons(persons);
+        })
     : window.confirm(
       `${newName} is already in the Phonebook. Would you like to update their number?`)
       ? serviceRequest
