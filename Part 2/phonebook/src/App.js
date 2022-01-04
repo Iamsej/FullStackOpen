@@ -80,7 +80,7 @@ const App = () => {
             setTimeout(() => {
               setError(null)
             }, 5000);
-            setPersons(persons.filter(person => person.name !== newName));
+            setPersons(persons);
           })
       : alert('Cancelled update')
  
